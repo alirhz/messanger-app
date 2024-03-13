@@ -1,6 +1,5 @@
 import { SearchOutlined } from '@ant-design/icons';
 
-
 const SearchBar = () => {
   return (
     <div className="flex w-full border border-gray-300 bg-white items-center shadow-sm rounded-md">

@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Sidebar() {
 
   return (
-    <main>
+    <section>
       <div className="fixed bg-gray-800 text-white h-screen w-1/6">
         <div className="flex flex-col items-center py-4 space-y-4">
           <div className="flex justify-center">
@@ -20,41 +20,35 @@ export default function Sidebar() {
         </div>
         <hr className="border-gray-700" />
         <div className="mt-4 pl-4">
-          <h3 className="text-lg font-bold mb-2">+ People</h3>
+          <h3 className="text-lg font-semibold mb-2">+ People</h3>
           <div className="flex flex-col space-y-3">
-            <div className="flex items-center space-x-2">
-              <Image
-                className="rounded-full border border-white w-8 h-8"
+            <div className="flex items-center space-x-2 ml-5">
+              <img
+                className="rounded-md border border-white size-7"
                 src="/people/pexels-andrea-piacquadio-733872.jpg"
-                width={24}
-                height={24}
                 alt="Picture of the author"
               />
-              <span>Christian</span>
+              <span className="font-light">Christian</span>
             </div>
-            <div className="flex items-center space-x-2">
-              <Image
-                className="rounded-full border border-white w-8 h-8"
+            <div className="flex items-center space-x-2 ml-5">
+              <img
+                className="rounded-md border size-7 border-white"
                 src="/people/pexels-justin-shaifer-1222271.jpg"
-                width={24}
-                height={24}
                 alt="Picture of the author"
               />
-              <span>Mark</span>
+              <span className="font-light">Mark</span>
             </div>
-            <div className="flex items-center space-x-2">
-              <Image
-                className="rounded-full border border-white w-8 h-8"
+            <div className="flex items-center space-x-2 ml-5">
+              <img
+                className="rounded-md border border-white size-7"
                 src="/people/pexels-tomaz-barcellos-1987301.jpg"
-                width={24}
-                height={24}
                 alt="Picture of the author"
               />
-              <span>Sarah</span>
+              <span className="font-light">Sarah</span>
             </div>
           </div>
         </div>
       </div>
-    </main>
+    </section>
   );
 }
