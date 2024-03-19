@@ -1,11 +1,11 @@
 import { MenuOutlined } from '@ant-design/icons';
-import SearchBar from "@/app/layouts/SearchBar";
+import SearchBar from "../SearchBar";
 
 export default function Header() {
 
     return (
         <main>
-            <header className="text-black bg-white w-full md:w-5/6 h-16 float-right">
+            <header className="md:w-5/6 h-16 float-right right-0">
                 <div className="flex justify-between items-center pt-4 px-4 mr-5">
                     <div className='text-xl font-bold	'>
                         # App - Project Zero
