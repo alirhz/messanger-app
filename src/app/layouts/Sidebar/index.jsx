@@ -25,7 +25,7 @@ export default function Sidebar() {
           <div className="flex flex-col space-y-3">
             <div className="flex items-center space-x-2 ml-7">
               <img
-                className="rounded-md border border-white w-7 h-7"
+                className="rounded-md border border-white w-8 h-8"
                 src="/people/pexels-andrea-piacquadio-733872.jpg"
                 alt="Picture of the author"
               />
@@ -33,7 +33,7 @@ export default function Sidebar() {
             </div>
             <div className="flex items-center space-x-2 ml-7">
               <img
-                className="rounded-md border w-7 h-7 border-white"
+                className="rounded-md border w-8 h-8 border-white"
                 src="/people/pexels-justin-shaifer-1222271.jpg"
                 alt="Picture of the author"
               />
@@ -41,7 +41,7 @@ export default function Sidebar() {
             </div>
             <div className="flex items-center space-x-2 ml-7">
               <img
-                className="rounded-md border border-white w-7 h-7"
+                className="rounded-md border border-white w-8 h-8"
                 src="/people/pexels-tomaz-barcellos-1987301.jpg"
                 alt="Picture of the author"
               />

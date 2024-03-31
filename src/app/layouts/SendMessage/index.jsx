@@ -4,12 +4,17 @@ import io from 'socket.io-client';
 import React, { useState, useEffect } from 'react';
 import { fetchMessages } from "./service";
 import { useDispatch } from "react-redux"
-import { submitMessage } from '../../../redux/features/message-slice'; // Import the action creator
+import { submitMessage } from '../../../redux/features/chat-slice'; // Import the action creator
 
 const SendMessageComponent = () => {
 
-  const [messageText, username, date] = useState("");
 
+  const [messageValue, setMessageValue] = useState('');
+
+  const handleChange = (event) => {
+    // Update the messageValue state with the new value from the input
+    setMessageValue(event.target.value);
+  };
 
   const dispatch = useDispatch();
 
@@ -17,6 +22,7 @@ const SendMessageComponent = () => {
 
   socket.on('connect', () => {
     console.log('Connected to Socket.IO server');
+    socket.emit('connected', "Ali");
   });
 
   const sendMessage = (formData) => {
@@ -50,6 +56,8 @@ const SendMessageComponent = () => {
     // Send a message to the server
     socket.emit('message', sentMessageInfo);
 
+    setMessageValue("");
+
     // Event listener for when a message is received from the server
     socket.on('message', (data) => {
       console.log('Received from server:', data);
@@ -68,8 +76,10 @@ const SendMessageComponent = () => {
           <input
             className="focus:outline-none bg-white w-11/12"
             type="text"
+            value={messageValue == null ? '' : messageValue}
             placeholder="Enter to Send.Shift L to Add new line"
             name="message"
+            onChange={handleChange}
           />
           <button type="submit" className="flex justify-between gap-3 items-center p-5 h-10 bg-indigo-500 rounded">
             <p className="text-lime-50">
