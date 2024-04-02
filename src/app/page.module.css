@@ -228,4 +228,38 @@
       transform: rotate(0deg);
     }
   }
+
+
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .content {
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .description {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .link {
+    color: #0070f3;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+  }
+  
+  .link:hover {
+    color: #0366d6;
+  }
   
