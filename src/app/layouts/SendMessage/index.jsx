@@ -2,29 +2,30 @@
 import { SendOutlined } from '@ant-design/icons';
 import io from 'socket.io-client';
 import React, { useState, useEffect } from 'react';
-import { fetchMessages } from "./service";
+import { userAppSelector } from "../../../redux/store"
 import { useDispatch } from "react-redux"
 import { submitMessage } from '../../../redux/features/chat-slice'; // Import the action creator
+import { BASE_URL } from "../../utils/constant";
+import {socket} from "../../services/socket";
 
 const SendMessageComponent = () => {
 
-
   const [messageValue, setMessageValue] = useState('');
+  const user = userAppSelector((state) => state?.messageReducer?.user);
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    socket.on('connect', () => {
+      console.log('Connected to Socket.IO server');
+      socket.emit('connected', user.username);
+    });
+  }, [dispatch]);
+
 
   const handleChange = (event) => {
     // Update the messageValue state with the new value from the input
     setMessageValue(event.target.value);
   };
-
-  const dispatch = useDispatch();
-
-  const socket = io('http://localhost:3001'); // Replace with your server URL
-
-  socket.on('connect', () => {
-    console.log('Connected to Socket.IO server');
-    socket.emit('connected', "Ali");
-  });
-
   const sendMessage = (formData) => {
     const message = formData.get("message");
 
@@ -45,8 +46,9 @@ const SendMessageComponent = () => {
 
     const sentMessageInfo = {
       message_text: message,
-      username: "josh",
-      time: formattedDateTime
+      username: user.username,
+      time: formattedDateTime,
+      user_id: user.user_id
     }
 
     dispatch(submitMessage(sentMessageInfo));

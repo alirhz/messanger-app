@@ -11,6 +11,7 @@ type User = {
   username: string;
   password: string;
   token?: string;
+  user_id: string;
 };
 
 type InitialState = {
@@ -24,7 +25,8 @@ const initialState: InitialState = {
     fullname: null,
     username: null,
     password: null,
-    token: null
+    token: null,
+    user_id: null
   }
 };
 

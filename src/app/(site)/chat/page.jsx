@@ -1,7 +1,6 @@
 "use client";
 import SendMessage from "../../layouts/SendMessage";
 import Messages from "../../layouts/Messages";
-import { useSelector } from "react-redux"
 import isAuth from "../../../Authentication/isAuth";
 
 const Home = () => {
