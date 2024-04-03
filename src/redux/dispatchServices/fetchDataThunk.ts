@@ -16,8 +16,13 @@ export const fetchDataThunk = () => async (dispatch) => {
 export const login = (email: string, password: string) => async (dispatch) => {
   try {
     const data = await loginUser(email, password);
-    if (data) 
+    if (data)  {
+      const { token, user_id, username} = data;
+      localStorage.setItem('token', token)
+      localStorage.setItem('user_id', user_id)
+      localStorage.setItem('username', username)
       dispatch(saveUser(data));
+    }
   } catch (error) {
     // Handle error
     console.error("Error fetching messages:", error);

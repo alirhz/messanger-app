@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react';
 import { userAppSelector } from "../../../redux/store"
 import { useDispatch } from "react-redux"
 import { submitMessage } from '../../../redux/features/chat-slice'; // Import the action creator
-import { BASE_URL } from "../../utils/constant";
 import {socket} from "../../services/socket";
 
 const SendMessageComponent = () => {
