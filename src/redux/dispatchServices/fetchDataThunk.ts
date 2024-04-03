@@ -17,10 +17,11 @@ export const login = (email: string, password: string) => async (dispatch) => {
   try {
     const data = await loginUser(email, password);
     if (data)  {
-      const { token, user_id, username} = data;
+      const { token, user_id, username, profile_pic} = data;
       localStorage.setItem('token', token)
       localStorage.setItem('user_id', user_id)
       localStorage.setItem('username', username)
+      localStorage.setItem('profile_pic', profile_pic)
       dispatch(saveUser(data));
     }
   } catch (error) {

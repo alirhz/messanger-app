@@ -14,11 +14,8 @@ const SendMessageComponent = () => {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    socket.on('connect', () => {
-      console.log('Connected to Socket.IO server');
-      socket.emit('connected', user.username);
-    });
-  }, [dispatch]);
+    socket.emit('connected', localStorage.getItem("user_id"));
+  });
 
 
   const handleChange = (event) => {
