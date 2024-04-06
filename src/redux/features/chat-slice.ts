@@ -17,6 +17,7 @@ type User = {
 type InitialState = {
   messages: Message[];
   user: User;
+  users: User[];
 };
 
 const initialState: InitialState = {
@@ -27,7 +28,8 @@ const initialState: InitialState = {
     password: null,
     token: null,
     user_id: null
-  }
+  },
+  users: [],
 };
 
 export const messageSlice = createSlice({
@@ -42,12 +44,16 @@ export const messageSlice = createSlice({
       // Update state with fetched messages
       state.messages = action.payload;
     },
+    saveUsers: (state, action) => {
+      // Update state with fetched users
+      state.users = action.payload;
+    },
     saveUser: (state, action) => {
       // Update state with fetched user
       state.user = action.payload;
     },
   },
 });
-export const { saveFetchedMessages , saveUser } = messageSlice.actions;
+export const { saveFetchedMessages , saveUser , saveUsers } = messageSlice.actions;
 export const { submitMessage } = messageSlice.actions;
 export default messageSlice.reducer;
