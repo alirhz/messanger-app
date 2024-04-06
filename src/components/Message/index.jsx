@@ -21,28 +21,24 @@ const Message = (props) => {
     }
 
     return (
-        <div className={localStorage.getItem("user_id") != user_id ? "flex gap-4 border-b-2 py-3" : "flex gap-4 border-b-2 py-3 justify-end "}>
-            {
-                localStorage.getItem("user_id") != user_id ? (
-                    <div className={"w-12 h-12 rounded-md text-white items-center bg-red flex justify-center bold text-xl font-bold"}
-                    style={{ backgroundColor: profile_pic}}
-                    >
-                        {username[0].toUpperCase()}
-                    </div>
-                ) : null
-            }
+        <div className={"flex gap-4 border-b-2 py-3"}>
+            <div className={"w-12 h-12 rounded-md text-white items-center bg-red flex justify-center bold text-xl font-bold"}
+                style={{ backgroundColor: profile_pic }}
+            >
+                {username[0].toUpperCase()}
+            </div>
             <div className="flex flex-col justify-between h-12">
-                <div className={localStorage.getItem("user_id") != user_id ? "flex items-center" : "flex items-center flex-row-reverse"}>
-                    <h1 className={localStorage.getItem("user_id") != user_id ? "font-bold" : "font-bold px-4"}>
+                <div className={"flex items-center"}>
+                    <h1 className={"font-bold"}>
                         {username}
                     </h1>
+                    <p className="text-stone-400 text-xs ml-2">{convertedTime(time)}</p>
                     {
                         localStorage.getItem("user_id") != user_id ? (
-                            <div className="w-3 h-3 bg-slate-200 ml-4 rounded-full">
+                            <div className="w-3 h-3 bg-slate-200 ml-2 rounded-full">
                             </div>
                         ) : null
                     }
-                    <p className="text-stone-400 text-xs ml-2">{convertedTime(time)}</p>
                 </div>
                 <div>
                     {message_text}
