@@ -1,10 +1,10 @@
-// Import the messageAPI object
-import messageAPI from "../../app/services/api";
+// Import the mainAPI object
+import mainAPI from "../../app/services/api";
 
 // Login User
 const loginUser = async (email, password) => {
   try {
-    const response = await messageAPI.signIn(email, password);
+    const response = await mainAPI.signIn(email, password);
     // Return the data from the response
     return response.data;
   } catch (error) {
@@ -23,7 +23,7 @@ const registerUser = async (fullname, username, email, password) => {
       password: password,
       email: email
   }
-    const response = await messageAPI.signUp(user);
+    const response = await mainAPI.signUp(user);
     // Return the data from the response
     return response.data;
   } catch (error) {

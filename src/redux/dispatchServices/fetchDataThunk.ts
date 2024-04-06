@@ -1,12 +1,24 @@
 import { fetchMessages } from '../../app/layouts/SendMessage/service';
+import { fetchUsers } from './../../app/layouts/Sidebar/service';
 import { loginUser , registerUser } from '../../components/Auth/service';
-import { saveFetchedMessages, saveUser } from '../features/chat-slice';
+import { saveFetchedMessages, saveUser, saveUsers } from '../features/chat-slice';
 
 export const fetchDataThunk = () => async (dispatch) => {
   try {
     const data = await fetchMessages();
     if (data) 
       dispatch(saveFetchedMessages(data));
+  } catch (error) {
+    // Handle error
+    console.error("Error fetching messages:", error);
+  }
+};
+
+export const getUsers = () => async (dispatch) => {
+  try {
+    const data = await fetchUsers();
+    if (data) 
+      dispatch(saveUsers(data));
   } catch (error) {
     // Handle error
     console.error("Error fetching messages:", error);

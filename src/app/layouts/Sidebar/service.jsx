@@ -2,10 +2,10 @@
 import mainAPI from "../../services/api";
 
 // Function to fetch messages
-const fetchMessages = async () => {
+const fetchUsers = async () => {
   try {
     // Call the getMessage method from the mainAPI object
-    const response = await mainAPI.getMessage();
+    const response = await mainAPI.getUsers();
     // Return the data from the response
     return response.data;
   } catch (error) {
@@ -15,4 +15,4 @@ const fetchMessages = async () => {
   }
 };
 
-export { fetchMessages };
+export { fetchUsers };

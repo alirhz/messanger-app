@@ -1,7 +1,24 @@
+"use client";
 import Image from "next/image";
 import { PlusSquareOutlined } from '@ant-design/icons';
+import React, { useEffect } from 'react';
+import { userAppSelector } from "../../../redux/store"
+import { useDispatch } from 'react-redux';
+import { getUsers } from '../../../redux/dispatchServices/fetchDataThunk'
 
 export default function Sidebar() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUsers()); // Dispatch the getUsers action when the component mounts
+  }, [dispatch]);
+
+  const users = userAppSelector((state) => state.messageReducer.users);
+
+  function selectUser(userId) {
+    console.log(userId)
+  }
 
   return (
     <section>
@@ -21,32 +38,21 @@ export default function Sidebar() {
         </div>
         <hr className="border-gray-700" />
         <div className="mt-4 pl-4">
-          <h3 className="flex align-center items-center gap-2 content-center text-lg font-semibold mb-2"> <PlusSquareOutlined /> People</h3>
-          <div className="flex flex-col space-y-3">
-            <div className="flex items-center space-x-2 ml-7">
-              <img
-                className="rounded-md border border-white w-8 h-8"
-                src="/people/pexels-andrea-piacquadio-733872.jpg"
-                alt="Picture of the author"
-              />
-              <span className="font-light">Christian</span>
-            </div>
-            <div className="flex items-center space-x-2 ml-7">
-              <img
-                className="rounded-md border w-8 h-8 border-white"
-                src="/people/pexels-justin-shaifer-1222271.jpg"
-                alt="Picture of the author"
-              />
-              <span className="font-light">Mark</span>
-            </div>
-            <div className="flex items-center space-x-2 ml-7">
-              <img
-                className="rounded-md border border-white w-8 h-8"
-                src="/people/pexels-tomaz-barcellos-1987301.jpg"
-                alt="Picture of the author"
-              />
-              <span className="font-light">Sarah</span>
-            </div>
+          <h3 className="flex align-center items-center gap-2 content-center text-sm font-light mb-2"> People</h3>
+          <div className="flex flex-col space-y-2">
+
+            {users.map((item, index) => (
+              <button className="flex items-center space-x-2" onClick={() => selectUser(item.user_id)} key={index}>
+                <div
+                  className="rounded-md w-8 h-8 text-white items-center bg-red flex justify-center bold text-xl"
+                  style={{ backgroundColor: item.profile_pic}}
+                >
+                  {item.username[0].toUpperCase()}
+                </div>
+                <span className="font-light">{item.username}</span>
+              </button>
+            ))}
+
           </div>
         </div>
       </div>
