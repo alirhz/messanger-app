@@ -11,6 +11,8 @@ const SendMessageComponent = () => {
 
   const [messageValue, setMessageValue] = useState('');
   const user = userAppSelector((state) => state?.messageReducer?.user);
+  const contact = userAppSelector((state) => state.messageReducer?.contact);
+
   const dispatch = useDispatch();
   
   useEffect(() => {
@@ -39,19 +41,20 @@ const SendMessageComponent = () => {
     // Format datetime string
     const formattedDateTime = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 
-
     const sentMessageInfo = {
       message_text: message,
       username: user.username,
       time: formattedDateTime,
-      user_id: user.user_id
+      user_id: user.user_id,
+      conversation_id: contact.conversation_id
     }
 
-    dispatch(submitMessage(sentMessageInfo));
+    dispatch(submitMessage({...sentMessageInfo, profile_pic: user.profile_pic}));
 
     // // Event listener for when the connection is established
 
     // Send a message to the server
+    console.log("sentMessageInfo",sentMessageInfo)
     socket.emit('message', sentMessageInfo);
 
     setMessageValue("");
@@ -79,12 +82,21 @@ const SendMessageComponent = () => {
             name="message"
             onChange={handleChange}
           />
+          {contact.conversation_id ? 
           <button type="submit" className="flex justify-between gap-3 items-center p-5 h-10 bg-indigo-500 rounded">
             <p className="text-lime-50">
               Send
             </p>
             <SendOutlined className="text-lime-50" />
           </button>
+          : 
+          <button type="submit" className="flex justify-between gap-3 items-center p-5 h-10 bg-indigo-500 rounded opacity-50 cursor-not-allowed">
+            <p className="text-lime-50">
+              Send
+            </p>
+            <SendOutlined className="text-lime-50" />
+          </button>
+          }
         </form>
       </div>
     </footer>

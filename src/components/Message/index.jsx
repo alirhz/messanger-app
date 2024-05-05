@@ -1,6 +1,6 @@
 
 const Message = (props) => {
-    const { message_text, username, time, id_message, user_id, profile_pic } = props.message;
+    const { message_text, username, time, message_id, user_id, profile_pic } = props.message;
 
     function convertedTime(dateString) {
         const date = new Date(dateString);
@@ -21,6 +21,7 @@ const Message = (props) => {
     }
 
     return (
+        message_text ? 
         <div className={"flex gap-4 border-b-2 py-3"}>
             <div className={"w-12 h-12 rounded-md text-white items-center bg-red flex justify-center bold text-xl font-bold"}
                 style={{ backgroundColor: profile_pic }}
@@ -45,6 +46,7 @@ const Message = (props) => {
                 </div>
             </div>
         </div>
+        : null
     );
 };
 

@@ -1,10 +1,12 @@
 "use client";
 import Image from "next/image";
 import { PlusSquareOutlined } from '@ant-design/icons';
-import React, { useEffect } from 'react';
+import React, { useEffect , StrictMode  } from 'react';
 import { userAppSelector } from "../../../redux/store"
 import { useDispatch } from 'react-redux';
-import { getUsers } from '../../../redux/dispatchServices/fetchDataThunk'
+import { getUsers, fetchDataThunk } from '../../../redux/dispatchServices/fetchDataThunk'
+import { selectContact } from '../../../redux/features/chat-slice';
+import ModalComponent from './modal';
 
 export default function Sidebar() {
 
@@ -16,8 +18,9 @@ export default function Sidebar() {
 
   const users = userAppSelector((state) => state.messageReducer.users);
 
-  function selectUser(userId) {
-    console.log(userId)
+  function selectUser(item) {
+    dispatch(selectContact({contact_name: item.username ,...item}));
+    dispatch(fetchDataThunk({conversation_id: item.conversation_id}));
   }
 
   return (
@@ -35,6 +38,7 @@ export default function Sidebar() {
           </div>
           <div className="text-xl font-bold">Issue Chat</div>
           <a className="text-gray-300 hover:text-white underline">Edit Settings</a>
+          <ModalComponent/>
         </div>
         <hr className="border-gray-700" />
         <div className="mt-4 pl-4">
@@ -42,15 +46,17 @@ export default function Sidebar() {
           <div className="flex flex-col space-y-2">
 
             {users.map((item, index) => (
-              <button className="flex items-center space-x-2" onClick={() => selectUser(item.user_id)} key={index}>
+              item.user_id != localStorage.getItem("user_id") ? 
+                <button className="flex items-center space-x-2" onClick={() => selectUser(item)} key={index}>
                 <div
-                  className="rounded-md w-8 h-8 text-white items-center bg-red flex justify-center bold text-xl"
-                  style={{ backgroundColor: item.profile_pic}}
+                className="rounded-md w-8 h-8 text-white items-center bg-red flex justify-center bold text-xl"
+                style={{ backgroundColor: item.profile_pic}}
                 >
-                  {item.username[0].toUpperCase()}
+                {item.username[0].toUpperCase()}
                 </div>
                 <span className="font-light">{item.username}</span>
-              </button>
+                </button>
+                : null
             ))}
 
           </div>

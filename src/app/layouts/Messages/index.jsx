@@ -8,11 +8,13 @@ import { fetchDataThunk, selectMessages } from '../../../redux/dispatchServices/
 const Messages = () => {
   const dispatch = useDispatch();
 
+  const contact = userAppSelector((state) => state.messageReducer?.contact);
+  const messages = userAppSelector((state) => state.messageReducer.messages);
+
   useEffect(() => {
-    dispatch(fetchDataThunk()); // Dispatch the fetchDataThunk action when the component mounts
+    dispatch(fetchDataThunk(contact)); // Dispatch the fetchDataThunk action when the component mounts
   }, [dispatch]);
 
-  const messages = userAppSelector((state) => state.messageReducer.messages);
 
   return (
     <div className="float-right float-right md:w-5/6 text-black px-5 overflow-y-auto mb-8 py-24">

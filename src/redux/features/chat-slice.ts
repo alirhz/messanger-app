@@ -14,10 +14,18 @@ type User = {
   user_id: string;
 };
 
+type ContactUser = {
+  contact_id?: string;
+  conversation_id?: string;
+  contact_name?: string;
+};
+
 type InitialState = {
   messages: Message[];
   user: User;
+  contact: ContactUser;
   users: User[];
+  newUsers: User[];
 };
 
 const initialState: InitialState = {
@@ -29,7 +37,13 @@ const initialState: InitialState = {
     token: null,
     user_id: null
   },
+  contact: {
+    contact_name: null,
+    contact_id: null,
+    conversation_id: null,
+  },
   users: [],
+  newUsers: [],
 };
 
 export const messageSlice = createSlice({
@@ -40,6 +54,10 @@ export const messageSlice = createSlice({
       state.messages.push(action.payload);
       return state
     },
+    addMembers: (state, action: PayloadAction<any>) => {
+      // state.users.push(action.payload);
+      return state
+    },
     saveFetchedMessages: (state, action) => {
       // Update state with fetched messages
       state.messages = action.payload;
@@ -48,12 +66,20 @@ export const messageSlice = createSlice({
       // Update state with fetched users
       state.users = action.payload;
     },
+    saveNewUsers: (state, action) => {
+      // Update state with fetched users
+      state.newUsers = action.payload;
+    },
     saveUser: (state, action) => {
       // Update state with fetched user
       state.user = action.payload;
     },
+    selectContact: (state, action) => {
+      // Update state with fetched user
+      state.contact = action.payload;
+    }
   },
 });
-export const { saveFetchedMessages , saveUser , saveUsers } = messageSlice.actions;
+export const { saveFetchedMessages , saveUser , saveUsers , selectContact , saveNewUsers} = messageSlice.actions;
 export const { submitMessage } = messageSlice.actions;
 export default messageSlice.reducer;

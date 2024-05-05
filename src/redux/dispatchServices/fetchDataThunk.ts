@@ -1,11 +1,12 @@
 import { fetchMessages } from '../../app/layouts/SendMessage/service';
-import { fetchUsers } from './../../app/layouts/Sidebar/service';
+import { fetchUsers , fetchNewUsers } from './../../app/layouts/Sidebar/service';
 import { loginUser , registerUser } from '../../components/Auth/service';
-import { saveFetchedMessages, saveUser, saveUsers } from '../features/chat-slice';
+import { saveFetchedMessages, saveNewUsers, saveUser, saveUsers } from '../features/chat-slice';
+import { userAppSelector } from '../store';
 
-export const fetchDataThunk = () => async (dispatch) => {
+export const fetchDataThunk = (contactId) => async (dispatch) => {
   try {
-    const data = await fetchMessages();
+    const data = await fetchMessages(contactId);
     if (data) 
       dispatch(saveFetchedMessages(data));
   } catch (error) {
@@ -21,7 +22,18 @@ export const getUsers = () => async (dispatch) => {
       dispatch(saveUsers(data));
   } catch (error) {
     // Handle error
-    console.error("Error fetching messages:", error);
+    console.error("Error fetching users:", error);
+  }
+};
+
+export const getNewUsers = () => async (dispatch) => {
+  try {
+    const data = await fetchNewUsers();
+    if (data) 
+      dispatch(saveNewUsers(data));
+  } catch (error) {
+    // Handle error
+    console.error("Error fetching users:", error);
   }
 };
 
@@ -38,7 +50,7 @@ export const login = (email: string, password: string) => async (dispatch) => {
     }
   } catch (error) {
     // Handle error
-    console.error("Error fetching messages:", error);
+    console.error("Error in login:", error);
   }
 };
 
@@ -49,6 +61,6 @@ export const register = (fullname: string,username: string, email: string, passw
       dispatch(saveUser(data));
   } catch (error) {
     // Handle error
-    console.error("Error fetching messages:", error);
+    console.error("Error in register:", error);
   }
 };

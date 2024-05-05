@@ -2,10 +2,11 @@
 import mainAPI from "../../services/api";
 
 // Function to fetch messages
-const fetchMessages = async () => {
+const fetchMessages = async (contact) => {
   try {
     // Call the getMessage method from the mainAPI object
-    const response = await mainAPI.getMessage();
+    if(!contact.conversation_id) throw "select a contact";
+    const response = await mainAPI.getMessage(contact.conversation_id);
     // Return the data from the response
     return response.data;
   } catch (error) {
