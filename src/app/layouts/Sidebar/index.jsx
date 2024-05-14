@@ -1,22 +1,23 @@
 "use client";
 import Image from "next/image";
-import { PlusSquareOutlined } from '@ant-design/icons';
+import { PlusSquareOutlined , CloseOutlined } from '@ant-design/icons';
 import React, { useEffect , StrictMode  } from 'react';
 import { userAppSelector } from "../../../redux/store"
 import { useDispatch } from 'react-redux';
 import { getUsers, fetchDataThunk } from '../../../redux/dispatchServices/fetchDataThunk'
-import { selectContact } from '../../../redux/features/chat-slice';
+import { selectContact , openMenu } from '../../../redux/features/chat-slice';
 import ModalComponent from './modal';
 
 export default function Sidebar() {
 
   const dispatch = useDispatch();
+  const users = userAppSelector((state) => state.messageReducer.users);
+  const isMenu = userAppSelector((state) => state.messageReducer.openMenu);
 
   useEffect(() => {
     dispatch(getUsers()); // Dispatch the getUsers action when the component mounts
   }, [dispatch]);
 
-  const users = userAppSelector((state) => state.messageReducer.users);
 
   function selectUser(item) {
     dispatch(selectContact({contact_name: item.username ,...item}));
@@ -25,9 +26,18 @@ export default function Sidebar() {
 
   return (
     <section>
-      <div className="fixed bg-gray-800 text-white h-screen w-1/6">
+      <div className={ isMenu ?
+        "fixed bg-gray-800 text-white h-screen w-2/4 lg:w-1/6 z-10 lg:z-0" :
+        "hidden lg:fixed bg-gray-800 text-white h-screen w-2/4 lg:w-1/6 z-10 lg:z-0"
+        }>
         <div className="flex flex-col items-center py-4 space-y-4">
           <div className="flex justify-center">
+            { isMenu ?
+              <div className={"relative lg:hidden"} onClick={() => dispatch(openMenu(false))}>
+          <CloseOutlined />
+            </div>
+            : null
+          }
             <Image
               src="/icons8-bebo-144.svg"
               alt="Vercel Logo"

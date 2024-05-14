@@ -24,12 +24,14 @@ type InitialState = {
   messages: Message[];
   user: User;
   contact: ContactUser;
+  openMenu: boolean;
   users: User[];
   newUsers: User[];
 };
 
 const initialState: InitialState = {
   messages: [],
+  openMenu: false,
   user: {
     fullname: null,
     username: null,
@@ -77,9 +79,13 @@ export const messageSlice = createSlice({
     selectContact: (state, action) => {
       // Update state with fetched user
       state.contact = action.payload;
+    },
+    openMenu: (state, action) => {
+      // Update state open menu
+      state.openMenu = action.payload;
     }
   },
 });
-export const { saveFetchedMessages , saveUser , saveUsers , selectContact , saveNewUsers} = messageSlice.actions;
+export const { saveFetchedMessages , saveUser , saveUsers , selectContact , saveNewUsers , openMenu} = messageSlice.actions;
 export const { submitMessage } = messageSlice.actions;
 export default messageSlice.reducer;

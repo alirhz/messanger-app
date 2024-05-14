@@ -1,16 +1,13 @@
 "use client"
-import { Inter } from "next/font/google";
 import "./../globals.css";
-import React from 'react';
+import {React , useState} from 'react';
 import { usePathname } from 'next/navigation';
 import Sidebar from "../layouts/Sidebar";
 import Header from "../layouts/Header";
 import { ReduxProvider } from "../../redux/provider"
 
-const inter = Inter({ subsets: ["latin"] });
-
-
 export default function RootLayout({ children }) {
+  const [isMenu, openMenu] = useState(false);
   const pathname = usePathname()
 
   // List of routes where you want to hide the layout
@@ -24,8 +21,8 @@ export default function RootLayout({ children }) {
       <body>
         <ReduxProvider>
           <div>
-            <Header />
-            <Sidebar />
+            <Header openMenu={openMenu}/>
+            <Sidebar data={isMenu} />
           </div>
           {children}
         </ReduxProvider>

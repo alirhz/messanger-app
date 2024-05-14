@@ -17,7 +17,7 @@ const Messages = () => {
 
 
   return (
-    <div className="float-right float-right md:w-5/6 text-black px-5 overflow-y-auto mb-8 py-24">
+    <div className="float-right float-right w-full lg:w-5/6 text-black px-5 overflow-y-auto mb-8 py-24">
       {messages.map((item,index) => (
         <Message message={item} key={index}/>
       ))}

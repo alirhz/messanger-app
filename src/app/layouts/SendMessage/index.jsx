@@ -72,7 +72,7 @@ const SendMessageComponent = () => {
 
   return (
     <footer>
-      <div className="text-black bg-white w-full md:w-5/6 float-right px-8">
+      <div className="text-black bg-white float-right w-full lg:w-5/6 px-0 lg:px-8">
         <form action={sendMessage} className="flex justify-between space-between bg-white border border-gray-400 items-center shadow-sm rounded-md px-2 py-2 mb-2 mx-6">
           <input
             className="focus:outline-none bg-white w-11/12"
