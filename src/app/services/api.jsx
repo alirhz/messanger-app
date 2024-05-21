@@ -6,6 +6,7 @@ import axiosInstance from './axiosInterceptorInstance';
 
 const mainAPI = {
     getMessage: (contactId) => axiosInstance.get(`${LOCAL_BASE_URL}/messages/${contactId}`),
+    retreieveUser: () => axiosInstance.get(`${LOCAL_BASE_URL}/retreive-user`),
     getUsers: () => axiosInstance.get(`${LOCAL_BASE_URL}/users`),
     addMembers: (members) => axiosInstance.post(`${LOCAL_BASE_URL}/members`, members),
     getNewUsers: () => axiosInstance.get(`${LOCAL_BASE_URL}/explore-users`),

@@ -4,6 +4,7 @@ type Message = {
   messageText: string;
   username: string;
   date: string;
+  profile_pic: any;
 };
 
 type User = {

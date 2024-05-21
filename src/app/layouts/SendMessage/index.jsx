@@ -1,11 +1,11 @@
 "use client";
 import { SendOutlined } from '@ant-design/icons';
-import io from 'socket.io-client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useRef } from 'react';
 import { userAppSelector } from "../../../redux/store"
 import { useDispatch } from "react-redux"
 import { submitMessage } from '../../../redux/features/chat-slice'; // Import the action creator
-import {socket} from "../../services/socket";
+import websocketService from "../../services/socket";
+import { retrieveUserInfo } from '../../../redux/dispatchServices/fetchDataThunk'
 
 const SendMessageComponent = () => {
 
@@ -14,16 +14,35 @@ const SendMessageComponent = () => {
   const contact = userAppSelector((state) => state.messageReducer?.contact);
 
   const dispatch = useDispatch();
+
+  const contactRef = useRef(contact);
+
+  useEffect(() => {
+    contactRef.current = contact;
+  }, [contact]);
   
   useEffect(() => {
-    socket.emit('connected', localStorage.getItem("user_id"));
-  });
-
+    if(!user.user_id)
+    dispatch(retrieveUserInfo());
+    websocketService.connect();
+    websocketService.subscribe(receieveWebSocketData);
+    return () => {
+      websocketService.unsubscribe(receieveWebSocketData);
+      websocketService.disconnect();
+    };
+  }, []);
 
   const handleChange = (event) => {
     // Update the messageValue state with the new value from the input
     setMessageValue(event.target.value);
   };
+
+  const receieveWebSocketData = (msg) => {
+    // Event listener for when a message is received from the server
+      if(contactRef.current.conversation_id == msg.conversation_id)
+        dispatch(submitMessage(msg));
+  }
+
   const sendMessage = (formData) => {
     const message = formData.get("message");
 
@@ -41,38 +60,25 @@ const SendMessageComponent = () => {
     // Format datetime string
     const formattedDateTime = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 
-    const sentMessageInfo = {
+    let sentMessageInfo;
+
+    sentMessageInfo = {
       message_text: message,
       username: user.username,
       time: formattedDateTime,
       user_id: user.user_id,
-      conversation_id: contact.conversation_id
+      conversation_id: contact.conversation_id,
+      profile_pic: user.profile_pic
     }
 
-    dispatch(submitMessage({...sentMessageInfo, profile_pic: user.profile_pic}));
-
-    // // Event listener for when the connection is established
-
-    // Send a message to the server
-    console.log("sentMessageInfo",sentMessageInfo)
-    socket.emit('message', sentMessageInfo);
-
+    // Event listener for when the connection is established
+    websocketService.sendMessage(sentMessageInfo);
     setMessageValue("");
-
-    // Event listener for when a message is received from the server
-    socket.on('message', (data) => {
-      console.log('Received from server:', data);
-    });
-
-    // Event listener for when the connection is closed
-    socket.on('disconnect', () => {
-      console.log('Disconnected from Socket.IO server');
-    });
   };
 
   return (
     <footer>
-      <div className="text-black bg-white float-right w-full lg:w-5/6 px-0 lg:px-8">
+      <div className={"text-black bg-white float-right w-full lg:w-5/6 px-0 lg:px-8"}>
         <form action={sendMessage} className="flex justify-between space-between bg-white border border-gray-400 items-center shadow-sm rounded-md px-2 py-2 mb-2 mx-6">
           <input
             className="focus:outline-none bg-white w-11/12"

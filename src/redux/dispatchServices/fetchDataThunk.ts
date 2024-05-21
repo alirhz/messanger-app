@@ -1,4 +1,4 @@
-import { fetchMessages } from '../../app/layouts/SendMessage/service';
+import { fetchMessages , retrieveUserInfoApi } from '../../app/layouts/SendMessage/service';
 import { fetchUsers , fetchNewUsers } from './../../app/layouts/Sidebar/service';
 import { loginUser , registerUser } from '../../components/Auth/service';
 import { saveFetchedMessages, saveNewUsers, saveUser, saveUsers } from '../features/chat-slice';
@@ -43,6 +43,22 @@ export const login = (email: string, password: string) => async (dispatch) => {
     if (data)  {
       const { token, user_id, username, profile_pic} = data;
       localStorage.setItem('token', token)
+      localStorage.setItem('user_id', user_id)
+      localStorage.setItem('username', username)
+      localStorage.setItem('profile_pic', profile_pic)
+      dispatch(saveUser(data));
+    }
+  } catch (error) {
+    // Handle error
+    console.error("Error in login:", error);
+  }
+};
+
+export const retrieveUserInfo = () => async (dispatch) => {
+  try {
+    const data = await retrieveUserInfoApi();
+    if (data)  {      
+      const { user_id, username, profile_pic} = data;
       localStorage.setItem('user_id', user_id)
       localStorage.setItem('username', username)
       localStorage.setItem('profile_pic', profile_pic)

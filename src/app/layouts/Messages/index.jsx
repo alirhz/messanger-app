@@ -4,6 +4,7 @@ import Message from "../../../components/Message";
 import { userAppSelector } from "../../../redux/store"
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDataThunk, selectMessages } from '../../../redux/dispatchServices/fetchDataThunk'
+import isAuth from '../../../Authentication/isAuth.tsx'
 
 const Messages = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,6 @@ const Messages = () => {
   useEffect(() => {
     dispatch(fetchDataThunk(contact)); // Dispatch the fetchDataThunk action when the component mounts
   }, [dispatch]);
-
 
   return (
     <div className="float-right float-right w-full lg:w-5/6 text-black px-5 overflow-y-auto mb-8 py-24">
@@ -27,4 +27,4 @@ const Messages = () => {
   );
 };
 
-export default Messages;
+export default isAuth(Messages);

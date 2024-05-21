@@ -16,4 +16,19 @@ const fetchMessages = async (contact) => {
   }
 };
 
-export { fetchMessages };
+// Function to fetch user
+const retrieveUserInfoApi = async () => {
+  try {
+    // Call the retreieveUser method from the mainAPI object
+    const response = await mainAPI.retreieveUser();
+    // Return the data from the response
+    return response.data;
+  } catch (error) {
+    // Handle any errors
+    console.error("Error fetching messages:", error);
+    return null;
+  }
+};
+
+
+export { fetchMessages , retrieveUserInfoApi };
