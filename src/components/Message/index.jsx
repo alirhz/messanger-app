@@ -4,20 +4,15 @@ const Message = (props) => {
 
     function convertedTime(dateString) {
         const date = new Date(dateString);
-
-        // Get hours and minutes
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-
-        // Determine if it's AM or PM
-        const amOrPm = hours >= 12 ? 'PM' : 'AM';
-
-        // Convert to 12-hour format
-        const formattedHours = hours % 12 || 12;
-
-        // Format the time as desired
-        const formattedTime = `${formattedHours}:${minutes < 10 ? '0' : ''}${minutes} ${amOrPm}`;
-        return formattedTime
+        
+        const options = {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false // Set to true for 12-hour format
+        };
+        
+        const humanReadableTime = date.toLocaleTimeString('en-US', options);
+        return humanReadableTime
     }
 
     return (

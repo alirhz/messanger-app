@@ -39,33 +39,22 @@ const SendMessageComponent = () => {
 
   const receieveWebSocketData = (msg) => {
     // Event listener for when a message is received from the server
-      if(contactRef.current.conversation_id == msg.conversation_id)
+      if(contactRef.current.conversation_id == msg.conversation_id) {
         dispatch(submitMessage(msg));
+        setTimeout(() => {
+          window.scrollTo(0, document.body.scrollHeight)
+        }, 0);
+      }
   }
 
   const sendMessage = (formData) => {
     const message = formData.get("message");
-
-    // Get current date and time
-    const currentDate = new Date();
-
-    // Get year, month, day, hour, minute, and second
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-    const day = String(currentDate.getDate()).padStart(2, '0');
-    const hour = String(currentDate.getHours()).padStart(2, '0');
-    const minute = String(currentDate.getMinutes()).padStart(2, '0');
-    const second = String(currentDate.getSeconds()).padStart(2, '0');
-
-    // Format datetime string
-    const formattedDateTime = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 
     let sentMessageInfo;
 
     sentMessageInfo = {
       message_text: message,
       username: user.username,
-      time: formattedDateTime,
       user_id: user.user_id,
       conversation_id: contact.conversation_id,
       profile_pic: user.profile_pic

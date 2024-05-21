@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type Message = {
   messageText: string;
   username: string;
-  date: string;
+  time: number;
   profile_pic: any;
 };
 
@@ -54,7 +54,7 @@ export const messageSlice = createSlice({
   initialState,
   reducers: {
     submitMessage: (state, action: PayloadAction<Message>) => {
-      state.messages.push(action.payload);
+      state.messages.push({...action.payload, time: Date.now()});
       return state
     },
     addMembers: (state, action: PayloadAction<any>) => {

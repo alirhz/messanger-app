@@ -8,10 +8,8 @@ import isAuth from '../../../Authentication/isAuth.tsx'
 
 const Messages = () => {
   const dispatch = useDispatch();
-
   const contact = userAppSelector((state) => state.messageReducer?.contact);
   const messages = userAppSelector((state) => state.messageReducer.messages);
-
   useEffect(() => {
     dispatch(fetchDataThunk(contact)); // Dispatch the fetchDataThunk action when the component mounts
   }, [dispatch]);
