@@ -1,18 +1,20 @@
 "use client";
 import Image from "next/image";
-import { PlusSquareOutlined , CloseOutlined } from '@ant-design/icons';
+import { PlusSquareOutlined , CloseOutlined , LogoutOutlined } from '@ant-design/icons';
 import React, { useEffect , StrictMode  } from 'react';
 import { userAppSelector } from "../../../redux/store"
 import { useDispatch } from 'react-redux';
-import { getUsers, fetchDataThunk } from '../../../redux/dispatchServices/fetchDataThunk'
+import { getUsers, fetchDataThunk , deleteUser } from '../../../redux/dispatchServices/fetchDataThunk'
 import { selectContact , openMenu } from '../../../redux/features/chat-slice';
 import ModalComponent from './modal';
+import { useRouter } from 'next/navigation'
 
 export default function Sidebar() {
 
+  const router = useRouter()
   const dispatch = useDispatch();
   const users = userAppSelector((state) => state.messageReducer.users);
-  const isMenu = userAppSelector((state) => state.messageReducer.openMenu);
+  const isMenu = userAppSelector((state) => state.messageReducer.openMenu);  
 
   useEffect(() => {
     dispatch(getUsers()); // Dispatch the getUsers action when the component mounts
@@ -22,6 +24,11 @@ export default function Sidebar() {
   function selectUser(item) {
     dispatch(selectContact({contact_name: item.username ,...item}));
     dispatch(fetchDataThunk({conversation_id: item.conversation_id}));
+  }
+
+  function logout() {
+    dispatch(deleteUser());
+    router.push('/auth/signin')
   }
 
   return (
@@ -47,11 +54,13 @@ export default function Sidebar() {
             />
           </div>
           <div className="text-xl font-bold">Issue Chat</div>
-          <a className="text-gray-300 hover:text-white underline">Edit Settings</a>
           <ModalComponent/>
+          <button className="h-1/20 bottom-0 justify-center text-2xl" onClick={() => logout() }>
+          <LogoutOutlined/>
+          </button>
         </div>
         <hr className="border-gray-700" />
-        <div className="mt-4 pl-4">
+        <div className="mt-4 pl-4 h-4/6	">
           <h3 className="flex align-center items-center gap-2 content-center text-sm font-light mb-2"> People</h3>
           <div className="flex flex-col space-y-2">
 

@@ -1,7 +1,7 @@
 import { fetchMessages , retrieveUserInfoApi } from '../../app/layouts/SendMessage/service';
 import { fetchUsers , fetchNewUsers } from './../../app/layouts/Sidebar/service';
 import { loginUser , registerUser } from '../../components/Auth/service';
-import { saveFetchedMessages, saveNewUsers, saveUser, saveUsers } from '../features/chat-slice';
+import { saveFetchedMessages, saveNewUsers, saveUser, saveUsers , deleteUserData } from '../features/chat-slice';
 import { userAppSelector } from '../store';
 
 export const fetchDataThunk = (contactId) => async (dispatch) => {
@@ -35,6 +35,10 @@ export const getNewUsers = () => async (dispatch) => {
     // Handle error
     console.error("Error fetching users:", error);
   }
+};
+
+export const deleteUser = () => async (dispatch) => {
+      dispatch(deleteUserData('DELETE_USER'));
 };
 
 export const login = (email: string, password: string) => async (dispatch) => {

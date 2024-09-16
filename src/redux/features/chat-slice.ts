@@ -73,6 +73,9 @@ export const messageSlice = createSlice({
       // Update state with fetched users
       state.newUsers = action.payload;
     },
+    deleteUserData : (state, action) => {
+      state.user = null;
+    },
     saveUser: (state, action) => {
       // Update state with fetched user
       state.user = action.payload;
@@ -87,6 +90,6 @@ export const messageSlice = createSlice({
     }
   },
 });
-export const { saveFetchedMessages , saveUser , saveUsers , selectContact , saveNewUsers , openMenu} = messageSlice.actions;
+export const { saveFetchedMessages , saveUser , saveUsers , selectContact , saveNewUsers , deleteUserData , openMenu} = messageSlice.actions;
 export const { submitMessage } = messageSlice.actions;
 export default messageSlice.reducer;
