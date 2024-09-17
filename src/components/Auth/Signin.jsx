@@ -21,7 +21,7 @@ const Signin = () => {
   };
 
   const users = userAppSelector((state) => state?.messageReducer?.user);
-  useEffect(() => {
+  useEffect(() => {    
     if(users?.token)
       router.push('/chat')
     else localStorage.clear();
