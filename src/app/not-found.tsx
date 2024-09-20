@@ -20,4 +20,9 @@ const NotFoundPage = () => {
   );
 };
 
+export async function generateStaticParams() {
+  // Define the static parameters here
+  return [];
+}
+
 export default NotFoundPage;
