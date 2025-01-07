@@ -1,23 +1,11 @@
-// pages/404.js
-
-import Link from 'next/link';
-import styles from '../page.module.css';
-
-const NotFoundPage = () => {
-  return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <h1 className={styles.title}>Oops! Page Not Found</h1>
-        <p className={styles.description}>
-          The page you are looking for might have been removed,
-          <br /> had its name changed, or is temporarily unavailable.
-        </p>
-        <Link href="/auth/signin" className={styles.link}>
-          Go back to sign in page
-        </Link>
-      </div>
-    </div>
-  );
-};
-
+import React from 'react';
+import { Button, Result } from 'antd';
+const NotFoundPage = () => (
+  <Result
+    status="404"
+    title="404"
+    subTitle="Sorry, the page you visited does not exist."
+    extra={<Button type="primary" href='/auth/signin'>Back to Sign In Page</Button>}
+  />
+);
 export default NotFoundPage;

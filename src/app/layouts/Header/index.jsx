@@ -34,7 +34,7 @@ export default function Header() {
                             <CloseOutlined />
                         }
                         </div>
-                        # {contact.contact_name}
+                        # {contact.contact_name || "Select User"}
                     </div>
                     {/* <div className='mr-10'>
                         <SearchBar />

@@ -1,12 +1,11 @@
 "use client";
-import { UserOutlined, MailOutlined, LockOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import React, { useState, useEffect } from 'react';
 import { userAppSelector } from "../../redux/store"
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/dispatchServices/fetchDataThunk';
 import { useRouter } from 'next/navigation'
 import Link from "next/link";
-
 const Signin = () => {
 
   const dispatch = useDispatch();

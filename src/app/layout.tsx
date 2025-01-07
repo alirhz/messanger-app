@@ -1,6 +1,6 @@
 export const metadata = {
-  title: '404',
-  description: 'Not found',
+  title: 'Chat',
+  description: 'Chat Page',
 }
 
 export default function RootLayout({
