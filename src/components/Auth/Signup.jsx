@@ -26,10 +26,10 @@ const Signin = () => {
   const users = userAppSelector((state) => state.messageReducer.user);
   useEffect(() => {
     
-    if(users.username)  {
-      router.push('/auth/signin')
-      return;
-    }
+    // if(users.username)  {
+    //   router.push('/auth/signin')
+    //   return;
+    // }
   });
 
 
